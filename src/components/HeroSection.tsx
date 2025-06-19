@@ -1,12 +1,15 @@
 
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface HeroSectionProps {
   darkMode: boolean;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ darkMode }) => {
+  const navigate = useNavigate();
+
   const scrollToNext = () => {
     const dashboardSection = document.getElementById('dashboard');
     if (dashboardSection) {
@@ -59,17 +62,31 @@ const HeroSection: React.FC<HeroSectionProps> = ({ darkMode }) => {
             while achieving epic gaming milestones. Join the eco-gaming revolution!
           </p>
           
-          <button
-            onClick={scrollToNext}
-            className={`group inline-flex items-center space-x-3 px-8 py-4 rounded-full text-xl font-semibold transition-all duration-300 hover:scale-105 transform hover:-translate-y-1 ${
-              darkMode
-                ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white hover:from-green-400 hover:to-blue-400 shadow-lg shadow-green-500/25'
-                : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500 shadow-lg shadow-purple-500/25'
-            }`}
-          >
-            <span>Scroll to Track Your Impact</span>
-            <ChevronDown className="animate-bounce group-hover:animate-none" size={24} />
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button
+              onClick={scrollToNext}
+              className={`group inline-flex items-center space-x-3 px-8 py-4 rounded-full text-xl font-semibold transition-all duration-300 hover:scale-105 transform hover:-translate-y-1 ${
+                darkMode
+                  ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white hover:from-green-400 hover:to-blue-400 shadow-lg shadow-green-500/25'
+                  : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-500 hover:to-blue-500 shadow-lg shadow-purple-500/25'
+              }`}
+            >
+              <span>Track Your Impact</span>
+              <ChevronDown className="animate-bounce group-hover:animate-none" size={24} />
+            </button>
+
+            <button
+              onClick={() => navigate('/interactive')}
+              className={`inline-flex items-center space-x-3 px-8 py-4 rounded-full text-xl font-semibold border-2 transition-all duration-300 hover:scale-105 transform hover:-translate-y-1 ${
+                darkMode
+                  ? 'border-green-400 text-green-400 hover:bg-green-400 hover:text-black'
+                  : 'border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white'
+              }`}
+            >
+              <span>Interactive Experience</span>
+              <span className="text-2xl">✨</span>
+            </button>
+          </div>
         </div>
       </div>
 

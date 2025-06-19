@@ -1,11 +1,73 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface VideoSectionProps {
   darkMode: boolean;
 }
 
 const VideoSection: React.FC<VideoSectionProps> = ({ darkMode }) => {
+  const [currentStory, setCurrentStory] = useState(0);
+
+  const stories = [
+    {
+      emoji: "💜",
+      title: "Cut my energy usage by 30%!",
+      description: "By optimizing my setup and using power-saving modes, I've dramatically reduced my carbon footprint while maintaining peak performance.",
+      color: darkMode ? "purple" : "purple"
+    },
+    {
+      emoji: "🎮",
+      title: "Achieved carbon-neutral gaming!",
+      description: "Through careful monitoring and eco-friendly practices, I've reached my goal of net-zero gaming impact.",
+      color: darkMode ? "blue" : "blue"
+    },
+    {
+      emoji: "🌟",
+      title: "Inspired my entire clan!",
+      description: "My energy-saving achievements motivated my gaming community to adopt eco-friendly practices too.",
+      color: darkMode ? "green" : "green"
+    },
+    {
+      emoji: "⚡",
+      title: "Reduced power bills by 40%!",
+      description: "Smart gaming schedules and efficient hardware choices have made a huge difference in my monthly expenses.",
+      color: darkMode ? "yellow" : "orange"
+    },
+    {
+      emoji: "🏆",
+      title: "Top eco-gamer in my region!",
+      description: "Consistent tracking and optimization helped me become a leader in sustainable gaming practices.",
+      color: darkMode ? "cyan" : "teal"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStory((prev) => (prev + 1) % stories.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [stories.length]);
+
+  const getStoryPosition = (index: number) => {
+    const diff = index - currentStory;
+    if (diff === 0) return 'translate-x-0 scale-100 z-30 opacity-100';
+    if (diff === 1 || diff === -(stories.length - 1)) return 'translate-x-full scale-95 z-20 opacity-70';
+    if (diff === -1 || diff === stories.length - 1) return '-translate-x-full scale-95 z-20 opacity-70';
+    return 'translate-x-full scale-90 z-10 opacity-0';
+  };
+
+  const getColorClasses = (color: string) => {
+    const colorMap = {
+      purple: darkMode ? 'bg-purple-500/10 border-purple-500/30 text-purple-400' : 'bg-purple-50/60 border-purple-200/50 text-purple-600',
+      blue: darkMode ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-blue-50/60 border-blue-200/50 text-blue-600',
+      green: darkMode ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-green-50/60 border-green-200/50 text-green-600',
+      yellow: darkMode ? 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400' : 'bg-orange-50/60 border-orange-200/50 text-orange-600',
+      cyan: darkMode ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400' : 'bg-teal-50/60 border-teal-200/50 text-teal-600'
+    };
+    return colorMap[color as keyof typeof colorMap] || colorMap.purple;
+  };
+
   return (
     <section id="videos" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
@@ -51,7 +113,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ darkMode }) => {
             </div>
           </div>
 
-          {/* Content */}
+          {/* Success Stories Carousel */}
           <div>
             <h3 className={`text-3xl font-bold mb-6 ${
               darkMode ? 'text-white' : 'text-gray-900'
@@ -59,72 +121,44 @@ const VideoSection: React.FC<VideoSectionProps> = ({ darkMode }) => {
               Gamer Success Stories
             </h3>
             
-            <div className="space-y-6">
-              <div className={`p-6 rounded-xl border backdrop-blur-lg ${
-                darkMode
-                  ? 'bg-purple-500/10 border-purple-500/30'
-                  : 'bg-purple-50/60 border-purple-200/50'
-              }`}>
-                <div className="flex items-start space-x-4">
-                  <div className="text-2xl">💜</div>
-                  <div>
-                    <h4 className={`font-semibold mb-2 ${
-                      darkMode ? 'text-purple-400' : 'text-purple-600'
-                    }`}>
-                      "Cut my energy usage by 30%!"
-                    </h4>
-                    <p className={`text-sm ${
-                      darkMode ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
-                      By optimizing my setup and using power-saving modes, I've dramatically reduced my carbon footprint while maintaining peak performance.
-                    </p>
+            <div className="relative h-64 overflow-hidden">
+              {stories.map((story, index) => (
+                <div
+                  key={index}
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out transform ${getStoryPosition(index)}`}
+                >
+                  <div className={`p-6 rounded-xl border backdrop-blur-lg h-full ${getColorClasses(story.color)}`}>
+                    <div className="flex items-start space-x-4 h-full">
+                      <div className="text-3xl flex-shrink-0">{story.emoji}</div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold mb-3 text-lg">
+                          {story.title}
+                        </h4>
+                        <p className={`text-sm leading-relaxed ${
+                          darkMode ? 'text-gray-400' : 'text-gray-600'
+                        }`}>
+                          {story.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              <div className={`p-6 rounded-xl border backdrop-blur-lg ${
-                darkMode
-                  ? 'bg-blue-500/10 border-blue-500/30'
-                  : 'bg-blue-50/60 border-blue-200/50'
-              }`}>
-                <div className="flex items-start space-x-4">
-                  <div className="text-2xl">🎮</div>
-                  <div>
-                    <h4 className={`font-semibold mb-2 ${
-                      darkMode ? 'text-blue-400' : 'text-blue-600'
-                    }`}>
-                      "Achieved carbon-neutral gaming!"
-                    </h4>
-                    <p className={`text-sm ${
-                      darkMode ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
-                      Through careful monitoring and eco-friendly practices, I've reached my goal of net-zero gaming impact.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className={`p-6 rounded-xl border backdrop-blur-lg ${
-                darkMode
-                  ? 'bg-green-500/10 border-green-500/30'
-                  : 'bg-green-50/60 border-green-200/50'
-              }`}>
-                <div className="flex items-start space-x-4">
-                  <div className="text-2xl">🌟</div>
-                  <div>
-                    <h4 className={`font-semibold mb-2 ${
-                      darkMode ? 'text-green-400' : 'text-green-600'
-                    }`}>
-                      "Inspired my entire clan!"
-                    </h4>
-                    <p className={`text-sm ${
-                      darkMode ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
-                      My energy-saving achievements motivated my gaming community to adopt eco-friendly practices too.
-                    </p>
-                  </div>
-                </div>
-              </div>
+            {/* Story Navigation Dots */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {stories.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentStory(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentStory
+                      ? darkMode ? 'bg-green-400' : 'bg-purple-600'
+                      : darkMode ? 'bg-gray-600' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>
