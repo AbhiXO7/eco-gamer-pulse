@@ -51,7 +51,7 @@ const InteractiveTextSection: React.FC<InteractiveTextSectionProps> = ({ darkMod
         return (
           <span
             key={index}
-            className={`inline-block px-2 py-1 mx-1 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-110 ${
+            className={`inline-block px-4 py-3 mx-2 my-1 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-110 ${
               darkMode 
                 ? 'text-green-400 hover:bg-green-500/20 hover:shadow-lg hover:shadow-green-500/30' 
                 : 'text-purple-600 hover:bg-purple-100 hover:shadow-lg hover:shadow-purple-500/30'
