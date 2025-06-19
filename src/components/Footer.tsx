@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Github, Twitter, Discord, Mail, Sun, Moon } from 'lucide-react';
+import { Github, Twitter, MessageCircle, Mail, Sun, Moon } from 'lucide-react';
 
 interface FooterProps {
   darkMode: boolean;
@@ -11,7 +10,7 @@ const Footer: React.FC<FooterProps> = ({ darkMode, toggleDarkMode }) => {
   const socialLinks = [
     { icon: Github, href: '#', label: 'GitHub' },
     { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Discord, href: '#', label: 'Discord' },
+    { icon: MessageCircle, href: '#', label: 'Discord' },
     { icon: Mail, href: '#', label: 'Email' },
   ];
 
