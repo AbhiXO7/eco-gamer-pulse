@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import Dashboard from '../components/Dashboard';
 import BadgesSection from '../components/BadgesSection';
+import InteractiveTextSection from '../components/InteractiveTextSection';
 import VideoSection from '../components/VideoSection';
 import Footer from '../components/Footer';
 
@@ -65,6 +65,7 @@ const Index = () => {
       <HeroSection darkMode={darkMode} />
       <Dashboard darkMode={darkMode} />
       <BadgesSection darkMode={darkMode} />
+      <InteractiveTextSection darkMode={darkMode} />
       <VideoSection darkMode={darkMode} />
       <Footer darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
     </div>
